@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	data "../data/data"
+	"github.com/cocomeshi/accumulator-bot/data"
 )
 
 func Fetch(key string) {
@@ -16,7 +16,7 @@ func Fetch(key string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(datas.Rest)
+	fmt.Println(datas)
 
 }
 
@@ -37,8 +37,8 @@ func get(key string) (data.RestaurantResponse, error) {
 
 	var datas data.RestaurantResponse
 	if err := json.Unmarshal(body, &datas); err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
-	return datas, nil
+	return datas, err
 
 }

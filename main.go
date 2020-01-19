@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/cocomeshi/accumulator-bot/internal"
 )
 
 func main() {
@@ -12,7 +14,7 @@ func main() {
 	if err != nil {
 		fmt.Println("APIアクセスキーの取得に失敗しました。")
 	}
-	fmt.Println(apiKey)
+	internal.Fetch(apiKey)
 }
 
 func readKey() (string, error) {
