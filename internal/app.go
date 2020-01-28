@@ -1,13 +1,17 @@
 package internal
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
+	"strconv"
+	"time"
 
 	"github.com/cocomeshi/accumulator-bot/data"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func Fetch(key string) {
@@ -16,14 +20,34 @@ func Fetch(key string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(datas)
+	// fmt.Printf("%+v¥n", datas)
+
+	// mongoに接続
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:28001"))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	collection := client.Database("cocomeshi").Collection("meshiya")
+
+	for _, rest := range datas.Restaurants {
+		insertResult, err := collection.InsertOne(ctx, rest)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(insertResult)
+	}
 
 }
 
 func get(key string) (data.RestaurantResponse, error) {
 
-	keyword := url.QueryEscape("マクドナルド")
-	url := "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=" + key + "&name=" + keyword
+	latitude := 34.726799
+	longitude := 135.401687
+	url := "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=" + key + "&latitude=" + strconv.FormatFloat(latitude, 'f', -1, 64) + "&longitude=" + strconv.FormatFloat(longitude, 'f', -1, 64) + "&range=5&hit_per_page=100"
+	fmt.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
