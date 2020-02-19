@@ -18,7 +18,7 @@ func main() {
 }
 
 func readKey() (string, error) {
-	f, err := os.Open("access-key.txt")
+	f, err := os.Open("googleapi-accesskey.txt")
 	if err != nil {
 		return "", err
 	}
