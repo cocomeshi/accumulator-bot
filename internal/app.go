@@ -1,12 +1,10 @@
 package internal
 
 import (
-	"database/sql"
 	"fmt"
-	"log"
 
-	api "github.com/cocomeshi/accumulator-bot/interface"
 	repo "github.com/cocomeshi/accumulator-bot/infrastructure"
+	api "github.com/cocomeshi/accumulator-bot/interface"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -22,6 +20,6 @@ func Exec(key string) {
 		fmt.Println(err)
 	}
 	defer db.Close()
-	repo.NearbySearch(db, datas)
+	repo.Insert(db, datas)
 
 }

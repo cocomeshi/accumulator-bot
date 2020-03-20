@@ -1,6 +1,8 @@
 package interface
 
-import "github.com/cocomeshi/accumulator-bot/data"
+import (
+	"github.com/cocomeshi/accumulator-bot/data"
+)
 
 func NearbySearch() error {
 	latitude := 34.726799
