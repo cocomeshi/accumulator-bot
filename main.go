@@ -9,12 +9,11 @@ import (
 )
 
 func main() {
-	fmt.Println("Test")
 	apiKey, err := readKey()
 	if err != nil {
 		fmt.Println("APIアクセスキーの取得に失敗しました。")
 	}
-	internal.Fetch(apiKey)
+	internal.Exec(apiKey)
 }
 
 func readKey() (string, error) {
