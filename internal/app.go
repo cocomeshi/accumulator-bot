@@ -20,6 +20,6 @@ func Exec(key string) {
 		fmt.Println(err)
 	}
 	defer db.Close()
-	repo.Insert(db, datas)
+	repo.Insert(db, datas.Restaurants)
 
 }

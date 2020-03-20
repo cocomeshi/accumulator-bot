@@ -1,10 +1,16 @@
-package interface
+package api
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strconv"
+
 	"github.com/cocomeshi/accumulator-bot/data"
 )
 
-func NearbySearch() error {
+func NearbySearch(key string) (data.RestaurantResponse, error) {
 	latitude := 34.726799
 	longitude := 135.401687
 	strLatitude := strconv.FormatFloat(latitude, 'f', -1, 64)
