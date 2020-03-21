@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 
 	"github.com/cocomeshi/accumulator-bot/data"
 )
 
-func NearbySearch(key string) (data.RestaurantResponse, error) {
-	latitude := 34.726799
-	longitude := 135.401687
-	strLatitude := strconv.FormatFloat(latitude, 'f', -1, 64)
-	strLongitude := strconv.FormatFloat(longitude, 'f', -1, 64)
-	// TODO queryをstruct化する
-	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + "location=" + strLatitude + "," + strLongitude + "&radius=3000&type=restaurant&key=" + key
+func NearbySearch(key string, p data.Coordinates) (data.RestaurantResponse, error) {
+
+	baseUrl := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+	radius := "3000"
+	placetype := "restaurant"
+	q := data.NewNearbysearchQuery(key, baseUrl, radius, placetype)
+	q.SetLocation(p)
+	url := q.QueryGen()
 	fmt.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
