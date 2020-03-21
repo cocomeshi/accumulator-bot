@@ -2,14 +2,14 @@
     "kinki": [
         {
             "label": "kobe",
-            "range": {
+            "point_range": {
                 "lat": [34.637313, 34.741823],
                 "lon": [135.099412, 135.319442]
             }
         },
         {
             "label": "amagasaki",
-            "range": {
+            "point_range": {
                 "lat": [34.698644, 34.814952],
                 "lon": [135.323145, 135.451753]
             }

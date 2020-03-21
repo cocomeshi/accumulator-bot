@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		fmt.Println("APIアクセスキーの取得に失敗しました。")
 	}
-	internal.Exec(apiKey)
+	internal.Scanning(apiKey)
 }
 
 func readKey() (string, error) {
