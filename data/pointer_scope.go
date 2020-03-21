@@ -9,31 +9,24 @@ const (
 
 // 経度、緯度の範囲データ型
 type PointerScope struct {
-	current        Coordinates
-	latitudeRange  Range
-	longitudeRange Range
-}
-
-type Range struct {
-	low  float64
-	high float64
+	Current    Coordinates
+	PointRange Range
 }
 
 // 次の走査座標の値で上書きする
 func (ps *PointerScope) Next() error {
-	newLon := ps.current.Longitude + ByLongitude
-	if isInLogitudeRange(newLon) {
-		ps.current = Coordinates{
-			Latitude:  ps.current.Latitude,
-			Longitude: ps.current.Longitude + ByLongitude,
+	newLon := ps.Current.Longitude + ByLongitude
+	if isInLogitudeRange(newLon, ps.PointRange) {
+		ps.Current = Coordinates{
+			Latitude:  ps.Current.Latitude,
+			Longitude: ps.Current.Longitude + ByLongitude,
 		}
-		return
 	} else {
-		newLat := ps.current.Latitude
-		if isInLatitudeRange(newLat) {
-			ps.current = Coordinates{
-				Latitude:  ps.current.Latitude + ByLatitude,
-				Longitude: ps.current.Longitude,
+		newLat := ps.Current.Latitude
+		if isInLatitudeRange(newLat, ps.PointRange) {
+			ps.Current = Coordinates{
+				Latitude:  ps.Current.Latitude + ByLatitude,
+				Longitude: ps.Current.Longitude,
 			}
 		} else {
 			return fmt.Errorf("Error: %s", "search range over!")
