@@ -39,10 +39,10 @@ func (ps *PointerScope) Next() error {
 
 // 緯度が範囲内であるかをテストする
 func isInLatitudeRange(lat float64, latRange Range) bool {
-	return latRange.Lat[0] >= lat || latRange.Lat[1] <= lat
+	return lat >= latRange.Lat[0] && lat <= latRange.Lat[1]
 }
 
 // 経度が範囲内であるかをテストする
 func isInLogitudeRange(lon float64, lonRange Range) bool {
-	return lonRange.Lon[0] >= lon || lonRange.Lon[1] <= lon
+	return lon >= lonRange.Lon[0] && lon <= lonRange.Lon[1]
 }

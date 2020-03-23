@@ -42,30 +42,29 @@ func Scanning(key string) {
 func regionSearch(key string, pointScope data.PointerScope) {
 
 	breakCounter := 0
-	go func() {
-		for {
-			fmt.Println("counter : " + strconv.Itoa(breakCounter))
-			if breakCounter == 0 {
-				Search(key, pointScope.Current)
-			} else {
-				err := pointScope.Next()
-				if err != nil {
-					break
-				}
-				Search(key, pointScope.Current)
+	for {
+		fmt.Println("counter : " + strconv.Itoa(breakCounter))
+		if breakCounter == 0 {
+			Search(key, pointScope.Current)
+		} else {
+			err := pointScope.Next()
+			if err != nil {
+				fmt.Println("point scope Next error")
+				break
 			}
-			if breakCounter >= breakCounterLimit {
-				// 連続して送信するリクエスト数の上限を超えた場合、
-				// 一秒間のインターバルを挟む
-				// Places APIのリクエスト上限は、100/sec のため
-				breakCounter = 0
-				time.Sleep(60 * time.Second)
-			} else {
-				breakCounter++
-			}
-
+			Search(key, pointScope.Current)
 		}
-	}()
+		if breakCounter >= breakCounterLimit {
+			// 連続して送信するリクエスト数の上限を超えた場合、
+			// 一秒間のインターバルを挟む
+			// Places APIのリクエスト上限は、100/sec のため
+			breakCounter = 0
+			time.Sleep(60 * time.Second)
+		} else {
+			breakCounter++
+		}
+
+	}
 
 }
 
