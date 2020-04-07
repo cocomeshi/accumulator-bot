@@ -13,29 +13,38 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// API実行カウント上限
 const breakCounterLimit int = 70
 
-func Scanning(key string) {
+func Exec(key string) {
 	// 走査対象データファイルからJSONデータを読み込む
 	area := getRegion()
-	kinkiArea := area.Kinki
-	amagasakiRange := kinkiArea[1].PointRange
-	latRange := amagasakiRange.Lat
-	lonRange := amagasakiRange.Lon
-	point := data.Coordinates{
-		Latitude:  latRange[0],
-		Longitude: lonRange[0],
+	areaSearch(key, area.Kinki)
+
+}
+
+// エリア検索
+func areaSearch(key string, area []data.Region) {
+
+	for _, region := range area {
+
+		latRange := region.PointRange.Lat
+		lonRange := region.PointRange.Lon
+		point := data.Coordinates{
+			Latitude:  latRange[0],
+			Longitude: lonRange[0],
+		}
+		ps := data.PointerScope{
+			Current: point,
+			PointRange: data.Range{
+				Lat: latRange,
+				Lon: lonRange,
+			},
+		}
+		// 指定の座標で検索
+		regionSearch(key, ps)
+
 	}
-	ps := data.PointerScope{
-		Current: point,
-		PointRange: data.Range{
-			Lat: latRange,
-			Lon: lonRange,
-		},
-	}
-	fmt.Println(ps)
-	// 指定の座標にて検索
-	regionSearch(key, ps)
 
 }
 
