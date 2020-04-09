@@ -50,3 +50,17 @@ func Insert(db *sql.DB, datas []data.Restaurant) {
 	}
 	tx.Commit()
 }
+
+func Update(id string, address string, db *sql.DB) error {
+
+	upd, err := db.Prepare("update cocomeshi.restaurant set address = ? where place_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	r, e := upd.Exec(address, id)
+	if e != nil {
+		return err
+	}
+	fmt.Println(r)
+	return nil
+}
