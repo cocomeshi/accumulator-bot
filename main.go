@@ -14,6 +14,7 @@ func main() {
 		fmt.Println("APIアクセスキーの取得に失敗しました。")
 	}
 	internal.Exec(apiKey)
+	internal.AdditionalUpdate(apiKey)
 }
 
 func readKey() (string, error) {
