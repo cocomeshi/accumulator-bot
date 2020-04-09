@@ -1,16 +1,11 @@
 package data
 
 type Restaurant struct {
-	Id           string       `json:"id"`
-	Name         string       `json:"name"`
-	Rating       float64      `json:"rating"`
-	Geometry     Geometry     `json:"geometry"`
-	Types        []string     `json:"types"`
-	OpeningHours OpeningHours `json:"opening_hours"`
-}
-
-type OpeningHours struct {
-	openNow bool `json:"open_now"`
+	Id       string   `json:"id"`
+	Name     string   `json:"name"`
+	Rating   float64  `json:"rating"`
+	Geometry Geometry `json:"geometry"`
+	Types    []string `json:"types"`
 }
 
 type Location struct {
