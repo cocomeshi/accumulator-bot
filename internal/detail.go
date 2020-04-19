@@ -11,11 +11,7 @@ import (
 
 func AdditionalUpdate(key string) {
 
-	db, err := repo.NewInstance()
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer db.Close()
+	db := repo.GetInstance()
 
 	placeIdArr, err := repo.SelectIds(db)
 	if err != nil {

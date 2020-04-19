@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	repo "github.com/cocomeshi/accumulator-bot/infrastructure"
 	"github.com/cocomeshi/accumulator-bot/internal"
 )
 
@@ -15,6 +16,8 @@ func main() {
 	}
 	internal.Exec(apiKey)
 	internal.AdditionalUpdate(apiKey)
+	db := repo.GetInstance()
+	defer db.Close()
 }
 
 func readKey() (string, error) {

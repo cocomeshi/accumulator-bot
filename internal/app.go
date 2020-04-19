@@ -83,11 +83,7 @@ func Search(key string, point data.Coordinates) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	db, err := repo.NewInstance()
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer db.Close()
+	db := repo.GetInstance()
 	repo.Insert(db, datas.Restaurants)
 
 }

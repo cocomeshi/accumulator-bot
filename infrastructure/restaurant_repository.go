@@ -44,7 +44,7 @@ func Insert(db *sql.DB, datas []data.Restaurant) {
 	for _, d := range datas {
 		r, e := ins.Exec(d.Id, d.Name, "", "", "", d.Geometry.Location.Longitude, d.Geometry.Location.Latitude, "kinki")
 		if e != nil {
-			log.Fatal(e)
+			fmt.Println(e)
 		}
 		fmt.Println(r)
 	}
@@ -53,7 +53,7 @@ func Insert(db *sql.DB, datas []data.Restaurant) {
 
 func Update(id string, address string, db *sql.DB) error {
 
-	upd, err := db.Prepare("update cocomeshi.restaurant set address = ? where place_id = ?")
+	upd, err := db.Prepare("update cocomeshi.restaurant set address = ? where id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
