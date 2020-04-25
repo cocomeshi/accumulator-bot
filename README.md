@@ -40,3 +40,7 @@
 [参考：緯度経度1度の距離](http://mononofu.hatenablog.com/entry/20090324/1237894846)
 
 [Goで一定周期で何かを行う](https://qiita.com/ruiu/items/1ea0c72088ad8f2b841e)
+
+
+### Cloud Funtionsへのデプロイ
+$ ./deploy-functions.sh
